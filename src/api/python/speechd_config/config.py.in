@@ -123,6 +123,7 @@ def question_with_required_answers(text, default, required):
 def setup_argparse():
     """Set up an argparser instance with all the options accepted."""
     parser = argparse.ArgumentParser()
+
     parser.add_argument('-u', '--create-user-conf',
         dest='create_user_configuration', action="store_true", default=False,
         help=_("Create Speech Dispatcher configuration for the given user"))
@@ -156,6 +157,8 @@ def setup_argparse():
     parser.add_argument('-D', '--debug', dest='debug',
             action="store_true", default=False,
             help=_("Debug a problem and generate a report"))
+
+    return parser
 
 class Tests:
     """Tests of functionality of Speech Dispatcher and its dependencies
@@ -749,8 +752,7 @@ you have to start it manually to continue."""))
 # Basic objects
 
 def main():
-    options = setup_argparse()
-    options.parse()
+    options = setup_argparse().parse_args()
     test = Tests()
     configure = Configure(test) # that should possibly be refactored, test should not be passed
 
